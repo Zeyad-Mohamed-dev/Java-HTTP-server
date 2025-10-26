@@ -1,0 +1,23 @@
+hello world
+i am zeyad and learning about networking
+File directory = new File("./src/main/java/org/example");
+        File file = new File(directory, "message.txt");
+        try (Scanner reader = new Scanner(file)) {
+           while(reader.hasNextLine()) {
+               System.out.println(reader.nextLine());
+           }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println("PLease enter one to list all files");
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            int input = scanner.nextInt();
+            if (input == 0) {
+                break;
+            } else {
+                for (File f : directory.listFiles()) {
+                    System.out.println(f.getName());
+                }
+            }
+        }
