@@ -17,7 +17,6 @@ public class HttpServer {
         Socket clientSocket = serverSocket.accept();
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         out = new PrintWriter(clientSocket.getOutputStream(), true);
-//        System.out.println(in.readLine());
 
         getMehtod(in.readLine(), out);
         clientSocket.close();
@@ -26,19 +25,12 @@ public class HttpServer {
 
     public void getMehtod(String reqString, PrintWriter out) {
         String method = reqString.substring(0, reqString.indexOf(" "));
+        HttpResponse response = new HttpResponse();
         System.out.println(method);
         if (method.equals("GET")) {
-            //header
-            out.println("HTTP/1.1 200 ok");
-            out.println("Content-Type: text/plain");
-            out.println();
-            //body
-            out.println("Allowed get request");
+            response.writeOkResponse(out, "Allowed method: GET");
         } else  {
-            out.println("HTTP/1.1 403 Forbidden");
-            out.println("Content-Type: text/plain");
-            out.println();
-            out.println("Not allowed request");
+            response.writeErrorResponse(out, 500, "Method not supported yet");
         }
     }
 
